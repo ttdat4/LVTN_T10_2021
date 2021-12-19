@@ -1,73 +1,87 @@
 <template>
   <v-container fluid>
-    <v-row >
+    <v-row>
       <v-col>
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-center title">
-                Hình ảnh
-              </th>
-              <th class="text-center title">
-                Tên sản phẩm
-              </th>
-              <th class="text-center title ">
-                Giá
-              </th>
-              <th class="text-center title ">
-                Số lượng
-              </th>
-              <th class="text-center title">
-                Hành động
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in cart" :key="index">
-              <td class="img">
-                <v-img max-height="250" max-width="250" :src="item.img"></v-img>
-              </td>
-              <td class="text-center">
-                <h6>{{ item.name }} / {{ item.sizeName }}</h6>
-              </td>
-              <td class="text-center"><h6>{{ item.price.toLocaleString() }} vnđ</h6></td>
-              <td class="text-center">
-                <v-icon
-                  slot="prepend"
-                  color="green"
-                  class="minus"
-                  @click="minus(index)"
-                >
-                  mdi-minus
-                </v-icon>
-              
-                <input
-                  class="count"
-                  type="number"
-                  min="1"
-                  readonly
-                  :value="item.quanlity"
-                />
-                
-                <v-icon
-                  slot="append"
-                  color="red"
-                  class="plus"
-                  @click="plus(index)"
-                >
-                  mdi-plus
-                </v-icon>
-              </td>
-              <td class="text-center" @click="removeProductCart(index)">
-                <v-btn color="error" dark>
-                  <v-icon>delete</v-icon>
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-center title">
+                  Hình ảnh
+                </th>
+                <th class="text-center title">
+                  Tên sản phẩm
+                </th>
+                <th class="text-center title ">
+                  Giá
+                </th>
+                <th class="text-center title ">
+                  Số lượng
+                </th>
+                <th class="text-center title">
+                  Hành động
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in cart" :key="index">
+                <td class="img">
+                  <v-img
+                    max-height="250"
+                    max-width="250"
+                    :src="item.img"
+                  ></v-img>
+                </td>
+                <td class="text-center">
+                  <router-link
+                    :to="{
+                      name: 'ProductDetails',
+                      params: { url: item.id },
+                    }"
+                    style="text-decoration:none"
+                  >
+                    <h6>{{ item.name }} / {{ item.sizeName }}</h6>
+                  </router-link>
+                </td>
+                <td class="text-center">
+                  <h6>{{ item.price.toLocaleString() }} vnđ</h6>
+                </td>
+                <td class="text-center">
+                  <v-icon
+                    slot="prepend"
+                    color="green"
+                    class="minus"
+                    @click="minus(index)"
+                  >
+                    mdi-minus
+                  </v-icon>
+
+                  <input
+                    class="count"
+                    type="number"
+                    min="1"
+                    readonly
+                    :value="item.quanlity"
+                  />
+
+                  <v-icon
+                    slot="append"
+                    color="red"
+                    class="plus"
+                    @click="plus(index)"
+                  >
+                    mdi-plus
+                  </v-icon>
+                </td>
+                <td class="text-center" @click="removeProductCart(index)">
+                  <v-btn color="error" dark>
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
       </v-col>
     </v-row>
     <v-row class="total mt-10">
@@ -80,7 +94,7 @@
         </v-row>
 
         <v-row>
-          <v-btn color="success" class="checkout" width="250px" to="/checkout"
+          <v-btn color="success" class="checkout" width="250px" @click="checkout"
             >Thanh toán</v-btn
           ></v-row
         >
@@ -102,6 +116,9 @@ export default {
     total() {
       return this.$store.getters.total;
     },
+    user() {
+      return this.$store.state.user;
+    },
   },
   methods: {
     validate() {
@@ -115,6 +132,12 @@ export default {
     },
     minus(index) {
       this.$store.dispatch("minus", index);
+    },
+    checkout(){
+      if (this.user != null)
+      {
+        this.$router.push("checkout")
+      }
     },
   },
 };

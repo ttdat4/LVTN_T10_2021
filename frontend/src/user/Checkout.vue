@@ -50,12 +50,12 @@
         </v-form>
       </v-col>
       <v-col cols="12" md="7">
-        <v-form v-model="valid" class="elevation-5 formUser">
+        <v-form v-model="valid" class="elevation-5 formUser" @submit="submit">
           <strong>THÔNG TIN KHÁCH HÀNG</strong>
           <v-row>
             <v-col cols="6"
               ><v-text-field
-                v-model="user.name"
+                v-model="invoice.name"
                 :rules="rules.name"
                 label="Họ tên"
                 required
@@ -63,7 +63,7 @@
             ></v-col>
             <v-col cols="6"
               ><v-text-field
-                v-model="user.phonenumber"
+                v-model="invoice.phonenumber"
                 :rules="rules.phonenumber"
                 label="Số điện thoại"
                 required
@@ -71,7 +71,7 @@
             ></v-col>
             <v-col cols="6"
               ><v-text-field
-                v-model="user.email"
+                v-model="invoice.email"
                 :rules="rules.email"
                 label="Email"
                 required
@@ -79,7 +79,7 @@
             ></v-col>
             <v-col cols="6"
               ><v-text-field
-                v-model="user.address"
+                v-model="invoice.address"
                 :rules="rules.address"
                 label="Địa chỉ"
                 required
@@ -88,28 +88,34 @@
           </v-row>
           <v-row>
             <strong>HÌNH THỨC NHẬN HÀNG</strong>
-            <v-radio-group v-model="column">
+            <v-radio-group v-model="invoice.method_payment">
               <v-radio
                 label="Giao hàng tận nơi (Thanh toán khi nhận hàng)"
-                value="rdoDeliver"
+                value="Deliver"
               ></v-radio>
-              <v-radio
-                label="Giữ hàng khách đến nhận"
-                value="rdoHold"
-              ></v-radio>
+              <v-radio label="Giữ hàng khách đến nhận" value="Hold"></v-radio>
             </v-radio-group>
             <v-col cols="12">
-              <v-text-field v-model="note" label="Ghi chú khác"></v-text-field>
+              <v-text-field
+                v-model="invoice.note"
+                label="Ghi chú khác"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row class="mt-8">
+            <v-col cols="12" class="d-flex justify-center">
+              <v-btn color="primary" to="product">Tiếp tục mua hàng</v-btn>
+              <v-btn
+                :disabled="!valid"
+                color="success"
+                class="ml-3"
+                type="submit"
+                @click="validate"
+                >Đặt hàng</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>
-        <v-row class="mt-8">
-          <v-col cols="12" class="d-flex justify-center">
-            <v-btn color="primary" to="product" >Tiếp tục mua hàng</v-btn>
-            <v-btn color="success" class="ml-3">Đặt hàng</v-btn>
-          </v-col>
-          
-        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -118,17 +124,33 @@
 <script>
 export default {
   name: "Checkout",
+  computed: {
+    cart() {
+      return this.$store.state.cart;
+    },
+    total() {
+      return this.$store.getters.total;
+    },
+    user() {
+      return this.$store.state.user;
+    },
+  },
   data() {
     return {
       valid: true,
-      column: "",
-      note: "",
-      user: {
+
+      product: [],
+      invoice: {
+        name: "",
+        address: "",
         email: "",
         phonenumber: "",
-        address: "",
-        name: "",
+        user_id: "",
+        method_payment: "Deliver",
+        invoiceDetails: [],
+        note: "",
       },
+
       rules: {
         name: [
           (v) => !!v || "Tên người dùng không được để trống",
@@ -151,14 +173,46 @@ export default {
       },
     };
   },
+  methods: {
+    validate() {
+      this.$refs.form.validate();
+    },
+    submit: function(e) {
+      e.preventDefault();
+      this.show = true;
+      const temp = [];
+      this.cart.forEach((el) => {
+        const item = {
+          size: el.sizeName,
+          amount: el.quanlity,
+          product_id: el.id,
+        };
+        temp.push(item);
+      });
+      this.invoice.user_id = this.user.id;
+      this.invoice.invoiceDetails = temp;
+      const formdata = new FormData();
+      formdata.append("invoice", JSON.stringify(this.invoice));
+      this.axios
+        .post("http://127.0.0.1:8000/api/invoice", formdata)
+        .then(() => {
+          this.show = false;
+          this.$router.push("/");
+          alert("Đặt hàng thành công!");
+          this.$store.dispatch("removeCartBeforeCheckout");
 
-  computed: {
-    cart() {
-      return this.$store.state.cart;
+        })
+        .catch((error) => {
+          this.show = false;
+          alert(error.response.data);
+        });
     },
-    total() {
-      return this.$store.getters.total;
-    },
+  },
+
+  created() {
+    if (this.user == null) {
+      this.$router.push("/");
+    }
   },
 };
 </script>

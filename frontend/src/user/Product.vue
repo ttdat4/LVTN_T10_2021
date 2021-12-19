@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-toolbar-title>Tất cả sản phẩm em đặt ở đây </v-toolbar-title>
+    <v-toolbar-title><span style="font-weight:bold">Tất cả sản phẩm </span></v-toolbar-title>
     <v-row >
       
       <v-col cols="12" sm="4"  v-for="product in listProduct"

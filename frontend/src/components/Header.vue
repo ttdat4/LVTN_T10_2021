@@ -31,7 +31,7 @@
         Tài khoản
       </v-btn>
       <v-btn v-else @click="logOut" dark>
-        {{ user }}
+        {{ user.name }}
       </v-btn>
     </div>
   </v-app-bar>
@@ -41,13 +41,14 @@
 export default {
   computed: {
     user() {
-      return this.$store.state.name;
+      return this.$store.state.user;
     },
   },
   methods: {
     logOut: function() {
       localStorage.removeItem("token");
-      this.$store.state.name = "";
+      localStorage.removeItem("user");
+      this.$store.state.user = "";
     },
   },
 };

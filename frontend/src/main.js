@@ -8,7 +8,6 @@ import vuetify from './plugins/vuetify'
 import VueSwal from 'vue-swal'
 import "vuetify/dist/vuetify.min.css";
 
-
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(VueSwal)

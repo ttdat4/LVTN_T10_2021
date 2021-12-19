@@ -22,12 +22,8 @@
           <div class="text-h4 font-weight-light blue--text mb-2">
             {{ product.name }}
           </div>
-
           <div class="font-weight-light text-h6 mb-2">
-            {{ product.description }}
-          </div>
-          <div class="font-weight-light text-h6 mb-2">
-            {{ product.price }}
+            Giá: {{ product.price.toLocaleString() }} vnđ
           </div>
           <div class="font-weight-light text-h6 mb-2">
             Kích thước
@@ -73,7 +69,7 @@
         <v-tabs-slider></v-tabs-slider>
         <v-tab href="#description">
           Mô tả chi tiết sản phẩm
-         
+
           <v-icon>mdi-heart</v-icon>
         </v-tab>
 
@@ -124,13 +120,15 @@
       <v-col>
         <v-sheet class="mx-auto" elevation="0">
           <v-slide-group class="pa-4" show-arrows>
-            <v-slide-item v-for="item in sameproduct" :key="item.id" >
-           
-              <v-card class="ma-1" height="450" width="400">
-                <Product
-                  :product="item"
-                />
-              </v-card>
+            <v-slide-item v-for="item in sameproduct" :key="item.id">
+              <router-link
+                :to="{ name: 'ProductDetails', params: { url: product.id } }"
+                style="text-decoration:none"
+              >
+                <v-card class="ma-1" height="450" width="400" @click="reload()">
+                  <Product :product="item" />
+                </v-card>
+              </router-link>
             </v-slide-item>
           </v-slide-group>
         </v-sheet>
@@ -161,9 +159,8 @@ export default {
           name: "",
         },
       ],
-      
     },
-    sameproduct:[],
+    sameproduct: [],
     rules: [
       (value) => !!value || "Không được để trống",
       (value) => (value && value.length >= 3) || "Bình luận ít nhất 3 ký tự",
@@ -186,6 +183,9 @@ export default {
     choose() {
       this.$swal("Bạn phải chọn size để thêm vào giỏ hàng!");
     },
+    reload(){
+      this.$router.go();
+    }
   },
 
   created() {
@@ -195,11 +195,11 @@ export default {
         this.product = response.data.product;
         console.log(this.product);
       });
-      this.axios
-    .get("http://127.0.0.1:8000/api/same/"+this.$route.params.url)
-    .then((response)=>{
-      this.sameproduct = response.data.data;
-    })
+    this.axios
+      .get("http://127.0.0.1:8000/api/same/" + this.$route.params.url)
+      .then((response) => {
+        this.sameproduct = response.data.data;
+      });
   },
 };
 </script>

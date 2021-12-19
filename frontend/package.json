@@ -13,6 +13,8 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-axios": "^3.3.7",
+    "vue-piczoom": "^1.0.6",
+    "vue-product-zoomer": "^3.0.1",
     "vue-router": "^3.2.0",
     "vue-swal": "^1.0.0",
     "vuetify": "^2.4.0",
@@ -21,7 +23,6 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",

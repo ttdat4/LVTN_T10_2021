@@ -13,11 +13,11 @@
           </div>
         </div>
       </div>
-
-      <p class="text-gray font-weight-bold text-uppercase px-6 small pb-4 mb-0">
-        BaYe-Jewellry-2611
-      </p>
-
+      <div>
+      <v-btn dark class="nav mb-3" to="/">
+          BaYe-Jewellry-2611
+      </v-btn>
+      </div>
       <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
           <router-link
@@ -50,6 +50,14 @@
             class="nav-link text-dark font-italic bg-light"
           >
             KHÁCH HÀNG
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link
+            to=""
+            class="nav-link text-dark font-italic bg-light"
+          >
+            ĐƠN HÀNG
           </router-link>
         </li>
       </ul>

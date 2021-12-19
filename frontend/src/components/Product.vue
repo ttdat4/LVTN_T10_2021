@@ -7,7 +7,7 @@
       :class="{ 'on-hover': hover }"
       class="mx-auto"
     >
-      <v-img height="300" :aspect-ratio="16 / 9" :src="product.image[0].urlimg" >
+      <v-img height="280" :aspect-ratio="16 / 9" :src="product.image[0].urlimg" >
         <v-expand-transition>
           <div
             v-if="hover"

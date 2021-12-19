@@ -77,6 +77,7 @@
         <v-col cols="12" md="6">
           <v-textarea
             outlined
+            counter
             v-model="product.description"
             label="Mô tả sản phẩm"
           ></v-textarea>
@@ -99,7 +100,7 @@
           >
             <template v-slot:selection="{ index, text }">
               <v-chip
-                v-if="index < 3"
+                v-if="index < 4"
                 color="deep-purple accent-4"
                 dark
                 label
@@ -109,10 +110,10 @@
               </v-chip>
 
               <span
-                v-else-if="index === 3"
+                v-else-if="index === 4"
                 class="text-overline grey--text text--darken-3 mx-2"
               >
-                +{{ files.length - 3 }} File(s)
+                +{{ files.length - 4 }} File(s)
               </span>
             </template>
           </v-file-input>
@@ -200,6 +201,7 @@ export default {
         .catch((error) => {
           this.show = false;
           alert(error.response.data);
+          
         });
     },
   },

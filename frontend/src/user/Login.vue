@@ -214,7 +214,6 @@
                             <v-btn color="black" dark block tile type="submit"
                               >TẠO TÀI KHOẢN</v-btn
                             >
-                            
                           </v-form>
                         </v-col>
                       </v-row>
@@ -288,15 +287,14 @@ export default {
       const login = new FormData();
       login.append("email", this.login.email);
       login.append("password", this.login.password);
-      
+
       this.axios
         .post("http://127.0.0.1:8000/api/login", login)
         .then((response) => {
           this.isActive = !this.isActive;
           localStorage.token = response.data.token;
-          this.$store.state.name = response.data.user.name;
+          this.$store.dispatch("login", response.data.user);
           this.$router.push("/");
-        
         })
         .catch((error) => {
           this.isActive = !this.isActive;

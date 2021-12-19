@@ -5,14 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    name: "",
+ 
     token: "",
     cart: [],
     amount: 0,
+    user: null,
   },
   mutations: {
-    login(state, name) {
-      state.name = name;
+    login(state, user) {
+      state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
     },
     addProductToCart(state, cartItem){
       let index = state.cart.find(item => {
@@ -34,11 +36,23 @@ export default new Vuex.Store({
       })
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
+    removeCartBeforeCheckout(state)
+    {
+      state.cart = '';
+      localStorage.setItem('cart', '')
+    },
     LoadingVuex(state){
       let cart = localStorage.getItem('cart');
+      let user = localStorage.getItem('user');
+     
       if (cart != null){
         state.cart = JSON.parse(cart);
       }
+      if(user != null)
+      {
+        state.user = JSON.parse(user);
+      }
+     
     },
     plus(state, i) {
       state.cart.forEach((item, index) => {
@@ -60,6 +74,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    login: (context, user) =>{
+      context.commit("login", user);
+    },
     addProductToCart: (context, cartItem) =>{
       context.commit("addProductToCart", cartItem);
     },
@@ -68,6 +85,9 @@ export default new Vuex.Store({
     },
     render: (context) => {
       context.commit("LoadingVuex");
+    },
+    removeCartBeforeCheckout: (context) =>{
+      context.commit("removeCartBeforeCheckout");
     },
     plus: (context, i) => {
       context.commit("plus", i)
