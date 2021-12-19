@@ -17,12 +17,14 @@ class CreateInvoiceTable extends Migration
             $table->id();
             $table->engine = 'InnoDB';
             $table->string('name');
-            $table->string('status');
-            $table->string('create_by');
+            $table->integer('status');
             $table->string('update_by');
             $table->string('address');
+            $table->string('email');
             $table->string('phonenumber');
             $table->unsignedBigInteger('user_id');
+            $table->string('method_payment');
+            $table->string('note');
             $table->timestamps();
         });
     }

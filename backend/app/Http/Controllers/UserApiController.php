@@ -40,5 +40,13 @@ class UserApiController extends Controller
     {
         return User::all();
     }
+    public function find($id)
+    {
+        $find = User::find($id);
+        if (!$find) {
+            return response()->json(['message' => 'Không tìm thấy khách hàng cần tìm!'], 404);
+        }
+        return $find;
+    }
 
 }

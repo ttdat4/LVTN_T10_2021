@@ -11,13 +11,14 @@ class Invoice extends Model
     protected $table = 'invoice';
     protected $primaryKey = 'id';
     protected $attributes = [
-        'status' => "Chưa xử lý",
+        'status' => "0",
     ];
     protected $fillable = [
         'name',
-        'numberphone',
+        'phonenumber',
         'address',
-        'create_by',
+        'email',
+        'method_payment',
     ];
     public function user(){
         return $this->belongsTo(User::class);

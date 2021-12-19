@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\SupplierApiController;
 use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\SearchApiController;
+use App\Http\Controllers\InvoiceApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::get("/same/{id}",[SearchApiController::class, 'sameproduct']);
 Route::apiResource("/category", CategoryApiController::class);
 Route::apiResource("/supplier", SupplierApiController::class);
 Route::apiResource("/product", ProductApiController::class);
+Route::apiResource("/invoice", InvoiceApiController::class);

@@ -129,31 +129,40 @@ class ProductApiController extends Controller
     {
         try {
 
-
-
             DB::beginTransaction();
+
             $product = $request['product'];
-
-
+            if(empty($product) )
+            {
+                return response()->json(['message' => "false"], 400);
+            }
             $updateProduct = Product::find($id);
-            $updateProduct->name = $product['name'];
-            $updateProduct->price = $product['price'];
-            $updateProduct->description = $product['description'];
-            $updateProduct->url = Str::slug($product['name']);
-            $category = Category::find($product['category']['id']);
-            // var_dump($product['category']['id']);
-            // exit();
-            if (!$category) {
-                return response()->json(['message' => "false"], 404);
+            if (isset($product['name'])) {
+                $updateProduct->name = $product['name'];
+                $updateProduct->url = Str::slug($product['name']);
             }
-            $updateProduct->category_id = $category->id;
-
-            $supplier = Supplier::find($product['supplier']['id']);
-
-            if (!$supplier) {
-                return response()->json(['message' => "false"], 404);
+            if (isset($product['price'])) {
+                $updateProduct->price = $product['price'];
             }
-            $supplier->product()->save($updateProduct);
+            if (isset($product['description'])) {
+                $updateProduct->description = $product['description'];
+            }
+            if (isset($product['category_id'])) {
+                $category = Category::find($product['category_id']);
+                if (!$category) {
+                    return response()->json(['message' => "false"], 404);
+                }
+                $updateProduct->category_id = $category->id;
+            }
+            if (isset($product['supplier_id'])) {
+                $supplier = Supplier::find($product['supplier_id']);
+
+                if (!$supplier) {
+                    return response()->json(['message' => "false"], 404);
+                }
+                $supplier->product()->save($updateProduct);
+            }
+
             DB::commit();
             return response()->json(['message' => "true"], 200);
         } catch (Exception $e) {

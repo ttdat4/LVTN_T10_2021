@@ -12,8 +12,9 @@ class InvoiceDetails extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
-        'total',
         'price',
+        'size',
+        'amount',
 
     ];
     public function invoice(){

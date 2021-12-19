@@ -16,9 +16,10 @@ class CreateInvoicedetailsTable extends Migration
         Schema::create('invoicedetails', function (Blueprint $table) {
             $table->id();
             $table->engine = 'InnoDB';
-            $table->bigInteger('total');
             $table->string('name');
             $table->bigInteger('price');
+            $table->integer('amount');
+            $table->string('size');
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('product_id');
             $table->timestamps();
