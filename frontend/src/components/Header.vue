@@ -9,10 +9,6 @@
       <v-tab to="/">
         TRANG CHỦ
       </v-tab>
-      <v-tab to="/product">
-        SẢN PHẨM
-      </v-tab>
-
       <v-tab to="/contact">
         LIÊN HỆ
       </v-tab>
@@ -48,7 +44,9 @@ export default {
     logOut: function() {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("role");
       this.$store.state.user = "";
+      this.$store.state.role = "";
     },
   },
 };

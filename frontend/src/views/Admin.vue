@@ -14,9 +14,9 @@
         </div>
       </div>
       <div>
-      <v-btn dark class="nav mb-3" to="/">
+        <v-btn dark class="nav mb-3" to="/">
           BaYe-Jewellry-2611
-      </v-btn>
+        </v-btn>
       </div>
       <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
@@ -53,11 +53,24 @@
           </router-link>
         </li>
         <li class="nav-item">
+          <v-select
+            v-model="activeInvoice"
+            class="nav-link text-dark font-italic bg-light"
+            :items="item"
+            label="ĐƠN HÀNG"
+            dense
+            outlined
+            item-value="key"
+            item-text="name"
+            @change="changeStatusInvoice"
+          ></v-select>
+        </li>
+        <li class="nav-item">
           <router-link
-            to=""
+            to="/admin/productpagetest"
             class="nav-link text-dark font-italic bg-light"
           >
-            ĐƠN HÀNG
+            SẢN PHẨM Test
           </router-link>
         </li>
       </ul>
@@ -88,13 +101,56 @@ export default {
   name: "Admin",
   data() {
     return {
+      item: [
+        { name: "Chưa xử lý", key: 0 },
+        { name: "Đã xác nhận", key: 1 },
+        { name: "Đang giao", key: 2 },
+        { name: "Đã nhận hàng", key: 3 },
+        { name: "Đơn bị hủy", key: 4 },
+      ],
       isActive: false,
+      activeInvoice: "0",
     };
   },
+  computed: {
+    role(){
+      return this.$store.state.role;
+    },
+    listInvoice() {
+      return this.$store.state.listInvoice;
+    },
+    filteredList() {
+      return this.listInvoice.filter((item) => {
+        if (item.status == this.activeInvoice) {
+          return item;
+        }
+      });
+    },
+  },
   methods: {
-    activeMenu: function() {
+    activeMenu() {
       this.isActive = !this.isActive;
     },
+    changeStatusInvoice(){
+      this.$store.dispatch("filteredList", this.filteredList);
+      this.$router.push("/admin/invoice");
+    },
+  },
+
+  created() {
+    this.axios.get("http://127.0.0.1:8000/api/invoice").then((response) => {
+      this.$store.dispatch("getInvoice", response.data.invoice);
+    });
+    if(this.role != 1)
+    {
+      alert("Bạn không có quyền truy cập!");
+      this.$router.push("/loginAdmin");
+    }
+    else
+    {
+      this.$router.push("/admin");
+    }
+    
   },
 };
 </script>

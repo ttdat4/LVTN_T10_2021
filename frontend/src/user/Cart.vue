@@ -94,7 +94,11 @@
         </v-row>
 
         <v-row>
-          <v-btn color="success" class="checkout" width="250px" @click="checkout"
+          <v-btn
+            color="success"
+            class="checkout"
+            width="250px"
+            @click="checkout"
             >Thanh toán</v-btn
           ></v-row
         >
@@ -133,10 +137,9 @@ export default {
     minus(index) {
       this.$store.dispatch("minus", index);
     },
-    checkout(){
-      if (this.user != null)
-      {
-        this.$router.push("checkout")
+    checkout() {
+      if (this.user != null) {
+        this.$router.push("checkout");
       }
     },
   },

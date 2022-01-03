@@ -11,13 +11,12 @@
     >
       Thêm
     </v-btn>
-    
+
     <v-simple-table>
-     
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left " >
+            <th class="text-left ">
               Mã sản phẩm
             </th>
             <th class="text-left">
@@ -26,7 +25,7 @@
             <th class="text-left">
               Giá
             </th>
-            <th class="text-left" >
+            <th class="text-left">
               Tên loại sản phẩm
             </th>
             <th class="text-left">
@@ -45,7 +44,7 @@
         </thead>
         <tbody>
           <tr v-for="item in listProduct" :key="item.name">
-            <td>{{ item.id}}</td>
+            <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.price.toLocaleString() }} vnđ</td>
             <td>{{ item.category.name }}</td>
@@ -66,16 +65,18 @@
               <!-- <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
               </v-icon> -->
-              <v-btn
+          
+                <v-btn
       color="primary"
       dark
       class="mb-2"
       v-bind="attrs"
       v-on="on"
-      to="update-product/:url"
+      @click="update(item.id)"
     >
       Sửa
     </v-btn>
+      
               <v-icon small @click="deleteItem(item)">
                 mdi-delete
               </v-icon>
@@ -93,6 +94,9 @@ export default {
     return {
       search: "",
       listProduct: [],
+      editedIndex: -1,
+      editedItem: {},
+      updateProduct:{},
     };
   },
   mounted() {
@@ -104,6 +108,16 @@ export default {
       .catch((error) => {
         this.message = error;
       });
+  },
+  methods:{
+    update(id){
+      this.$router.push("/admin/update-product/"+id);
+    },
+     editItem(item) {
+      this.editedIndex = this.listProduct.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
   },
 };
 </script>

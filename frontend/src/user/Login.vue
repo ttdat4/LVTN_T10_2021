@@ -48,7 +48,7 @@
                               @click:append="showPassword = !showPassword"
                             />
 
-                            <v-row>
+                            <!-- <v-row>
                               <v-col cols="12" sm="7">
                                 <v-checkbox
                                   label="Nhớ mật khẩu"
@@ -57,7 +57,7 @@
                                 >
                                 </v-checkbox>
                               </v-col>
-                            </v-row>
+                            </v-row> -->
                             <v-btn color="black" dark block tile type="submit"
                               >ĐĂNG NHẬP
                               <div
@@ -193,7 +193,7 @@
                               "
                               @click:append="showPassword = !showPassword"
                             />
-                            <v-row>
+                            <!-- <v-row>
                               <v-col cols="12" sm="7">
                                 <v-checkbox
                                   v-model="checkbox"
@@ -207,7 +207,7 @@
                                 >
                                 </v-checkbox>
                               </v-col>
-                            </v-row>
+                            </v-row> -->
                             <!-- <v-btn color="error" @click="reset">
                               Nhập lại
                             </v-btn> -->
@@ -293,6 +293,7 @@ export default {
         .then((response) => {
           this.isActive = !this.isActive;
           localStorage.token = response.data.token;
+           this.$store.dispatch("role", response.data.role);
           this.$store.dispatch("login", response.data.user);
           this.$router.push("/");
         })

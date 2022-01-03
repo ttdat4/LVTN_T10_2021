@@ -116,7 +116,7 @@
       </v-tabs-items>
     </v-row>
     <v-row>
-      <h3 class="ml-16 mt-16">Sản phẩm cùng loại ở đây nè</h3>
+      <h3 class="ml-16 mt-16">Sản phẩm cùng loại</h3>
       <v-col>
         <v-sheet class="mx-auto" elevation="0">
           <v-slide-group class="pa-4" show-arrows>
@@ -193,7 +193,6 @@ export default {
       .get("http://127.0.0.1:8000/api/product/" + this.$route.params.url)
       .then((response) => {
         this.product = response.data.product;
-        console.log(this.product);
       });
     this.axios
       .get("http://127.0.0.1:8000/api/same/" + this.$route.params.url)

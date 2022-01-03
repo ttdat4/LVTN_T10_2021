@@ -14,6 +14,6 @@ export default {
   created(){
     this.$store.dispatch('render');
      
-  }
+  },
 };
 </script>

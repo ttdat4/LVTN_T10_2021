@@ -203,8 +203,6 @@ export default {
           this.listCategory[this.editedIndex],
           this.editedItem
         );
-        console.log(item.id);
-        console.log(item);
         this.axios
           .put("http://127.0.0.1:8000/api/category/" + item.id, item)
           .then(() => {

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-toolbar-title><span style="font-weight:bold">Tất cả sản phẩm </span></v-toolbar-title>
+    <v-toolbar-title><span style="font-weight:bold">Danh sách sản phẩm theo: {{listProduct[0].category.name}}</span></v-toolbar-title>
     <v-row >
       
       <v-col cols="12" sm="4"  v-for="product in listProduct"
@@ -10,6 +10,9 @@
         />
       </v-col>
     </v-row>
+   
+        
+    
   </v-container>
 </template>
 
@@ -17,20 +20,10 @@
 import Product from "../components/Product.vue";
 export default {
   components: { Product },
-  data() {
-    return {
-      listProduct: [],
-    };
-  },
-  mounted() {
-    this.axios
-      .get("http://127.0.0.1:8000/api/product")
-      .then((response) => {
-        this.listProduct = response.data.product;
-      })
-      .catch((error) => {
-        this.message = error;
-      });
+  computed: {
+    listProduct() {
+      return this.$store.state.listProduct;
+    },
   },
 };
 </script>

@@ -88,7 +88,7 @@
           </v-row>
           <v-row>
             <strong>HÌNH THỨC NHẬN HÀNG</strong>
-            <v-radio-group v-model="invoice.method_payment">
+            <v-radio-group v-model="invoice.method_delivery">
               <v-radio
                 label="Giao hàng tận nơi (Thanh toán khi nhận hàng)"
                 value="Deliver"
@@ -145,8 +145,9 @@ export default {
         address: "",
         email: "",
         phonenumber: "",
+        total: this.$store.getters.total,
         user_id: "",
-        method_payment: "Deliver",
+        method_delivery: "Deliver",
         invoiceDetails: [],
         note: "",
       },
@@ -173,6 +174,7 @@ export default {
       },
     };
   },
+ 
   methods: {
     validate() {
       this.$refs.form.validate();

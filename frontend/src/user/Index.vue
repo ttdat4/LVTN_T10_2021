@@ -25,21 +25,18 @@
           </v-sheet>
         </v-col> -->
     </v-row>
-    <v-col cols="12" sm="12">
+    <v-col cols="12" sm="12" id="listCategorySlide">
       <v-sheet class="mx-auto" max-width="900">
         <v-slide-group multiple show-arrows>
-          <v-slide-item
-            v-for="n in listCategory"
-            :key="n"
-            v-slot="{ active, toggle }"
-          >
+          <v-slide-item v-for="n in listCategory" :key="n" v-slot="{ active }">
             <v-btn
+              :id="activeCategory == n.id ? 'activeCategory' : ''"
               class="mx-2"
               :input-value="active"
               active-class="blue white--text"
               depressed
               rounded
-              @click="toggle"
+              @click="toggle(n)"
             >
               {{ n.name }}
             </v-btn>
@@ -51,19 +48,10 @@
 
     <v-row>
       <h3 class="ml-16 mt-16">Sản phẩm mới</h3>
-      <v-col>
-        <v-sheet class="mx-auto" elevation="0">
-          <v-slide-group class="pa-4" show-arrows>
-            <v-slide-item v-for="item in listProduct" :key="item.id" >
-           
-              <v-card class="ma-1" height="450" width="400">
-                <Product
-                  :product="item"
-                />
-              </v-card>
-            </v-slide-item>
-          </v-slide-group>
-        </v-sheet>
+      <v-col v-for="item in listProduct" :key="item.id">
+        <v-card class="ma-3" height="450" width="400">
+          <Product :product="item" />
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -77,7 +65,8 @@ export default {
   },
   data() {
     return {
-      listProduct: [], //biến lưu dnah sách sản phẩm
+      activeCategory: "",
+      listProduct: [], //biến lưu danh sách sản phẩm
       listCategory: [], //biến lưu danh sách danh mục
       items: [
         {
@@ -91,12 +80,12 @@ export default {
       ],
     };
   },
+
   mounted() {
     this.axios
-      .get("http://127.0.0.1:8000/api/category")
+      .get("http://127.0.0.1:8000/api/findCaPro")
       .then((response) => {
-        this.listCategory = response.data;
-        
+        this.listCategory = response.data.data;
       })
       .catch((error) => {
         this.message = error;
@@ -110,7 +99,30 @@ export default {
         this.message = error;
       });
   },
+  methods: {
+    toggle(item) {
+      this.activeCategory = item.id;
+      this.axios
+        .get("http://127.0.0.1:8000/api/find/" + item.id)
+        .then((response) => {
+          if (response.data.data.length > 0) {
+            this.$store.dispatch("getProductCategory", response.data.data);
+            this.$router.push("/productcategory");
+          } else {
+            this.$router.push("/notfound");
+          }
+        });
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#activeCategory {
+  background-color: rgb(111, 111, 226);
+  color: white;
+}
+#listCategorySlide {
+  margin-left: 150px;
+}
+</style>
