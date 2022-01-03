@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserApiController extends Controller
@@ -17,9 +18,16 @@ class UserApiController extends Controller
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
+
+            $data = DB::table('users_role')
+                ->where('user_id', '=', $user->id)
+                ->select('role_id')
+                ->get();
+            $role = $data[0]->role_id;
             $token = $user->createToken("Laravel password")->accessToken;
+
             // $token = $user->createToken('My Token', ['place-orders'])->accessToken;
-            return response()->json(["token" => "$token", "user" => Auth::user()], 200);
+            return response()->json(["token" => "$token", "role" => "$role","user" => Auth::user()], 200);
         }
         return response()->json(["message" => "Email hoặc mật khẩu không đúng!"], 404);
     }
@@ -28,7 +36,7 @@ class UserApiController extends Controller
         $user = new User();
         $user->fill($request->all());
         $user->password = Hash::make($request->password);
-
+        
         $user->save();
         return response()->json(["message" => "Dang ky thanh cong"], 201);
     }
@@ -48,5 +56,4 @@ class UserApiController extends Controller
         }
         return $find;
     }
-
 }

@@ -19,6 +19,7 @@ class CategoryApiController extends Controller
     public function index()
     {
         return DB::table('category')->orderBy('id','DESC')->get();
+
     }
 
 
@@ -57,11 +58,13 @@ class CategoryApiController extends Controller
      */
     public function show($id)
     {
+
         $find = Category::find($id);
         if (!$find) {
             return response()->json(['message' => 'Không tìm thấy danh mục cần tìm!'], 404);
         }
         return $find;
+
     }
 
 

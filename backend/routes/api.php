@@ -30,6 +30,8 @@ Route::get("/profile",[UserApiController::class, 'profile']);
 Route::get("/listuser",[UserApiController::class, 'index']);
 
 Route::get("/same/{id}",[SearchApiController::class, 'sameproduct']);
+Route::get("/find/{id}",[SearchApiController::class, 'find']);
+Route::get("/findCaPro",[SearchApiController::class, 'findCategoryHasProduct']);
 
 Route::apiResource("/category", CategoryApiController::class);
 Route::apiResource("/supplier", SupplierApiController::class);

@@ -18,7 +18,8 @@ class Invoice extends Model
         'phonenumber',
         'address',
         'email',
-        'method_payment',
+        'total',
+        'method_delivery',
     ];
     public function user(){
         return $this->belongsTo(User::class);

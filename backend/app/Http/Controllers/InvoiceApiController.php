@@ -47,7 +47,8 @@ class InvoiceApiController extends Controller
             $newInvoice->address = $invoice->address;
             $newInvoice->email = $invoice->email;
             $newInvoice->phonenumber = $invoice->phonenumber;
-            $newInvoice->method_payment = $invoice->method_payment;
+            $newInvoice->total = $invoice->total;
+            $newInvoice->method_delivery = $invoice->method_delivery;
             $newInvoice->note = $invoice->note;
 
             $users = User::find($invoice->user_id);
@@ -90,7 +91,13 @@ class InvoiceApiController extends Controller
      */
     public function show($id)
     {
+        $find =  Invoice::find($id);
+        if ($find) {
+            $find->invoicedetails;
+            return response()->json(['invoice' => $find], 200);
+        }
 
+        return response()->json(['message' => "Not found!"], 404);
     }
 
     /**

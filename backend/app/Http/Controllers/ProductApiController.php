@@ -205,4 +205,5 @@ class ProductApiController extends Controller
         //     return response()->json(['message' => "false", 'error' => $e->getMessage(),], 400);
         // }
     }
+
 }
