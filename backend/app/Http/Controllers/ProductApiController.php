@@ -144,6 +144,9 @@ class ProductApiController extends Controller
             if (isset($product['price'])) {
                 $updateProduct->price = $product['price'];
             }
+            if (isset($product['status'])) {
+                $updateProduct->status = $product['status'];
+            }
             if (isset($product['description'])) {
                 $updateProduct->description = $product['description'];
             }
