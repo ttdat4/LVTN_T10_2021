@@ -8,6 +8,7 @@ import Cart from '../user/Cart.vue'
 import Checkout from '../user/Checkout.vue'
 import ProductDetails from '../user/ProductDetails.vue'
 import ProductCategory from '../user/ProductCategory.vue'
+import Profile from '../user/Profile.vue'
 import NotFound from '../user/NotFound.vue'
 import Contact from '../user/Contact.vue'
 
@@ -17,10 +18,10 @@ const Admin = () =>
     import('../views/Admin.vue')
 const LoginAdmin = () =>
     import('../admin/loginAdmin.vue')
-const Productpage = () =>
-    import('../admin/product/Productpage.vue')
-const ProductPageTest = () =>
-    import('../admin/product/ProductPageTest.vue')
+const ProductTest = () =>
+    import('../admin/product/ProductTest.vue')
+const ProductPage = () =>
+    import('../admin/product/ProductPage.vue')
 const AddProduct = () =>
     import('../admin/product/AddProduct.vue')
     const UpdateProduct = () =>
@@ -80,6 +81,11 @@ const routes = [
                 component: ProductCategory
             },
             {
+                path: 'profile',
+                name: 'Profile',
+                component: Profile
+            },
+            {
                 path: 'contact',
                 name: 'Contact',
                 component: Contact
@@ -101,14 +107,14 @@ const routes = [
         redirect: '/admin/category',
         children: [
             {
-                path: 'product',
-                name: 'Productpage',
-                component: Productpage,
+                path: 'producttest',
+                name: 'ProductTest',
+                component: ProductTest,
             },
             {
-                path: 'productpagetest',
-                name: 'ProductPageTest',
-                component: ProductPageTest,
+                path: 'product',
+                name: 'ProductPage',
+                component: ProductPage,
             },
             {
                 path: 'add-product',

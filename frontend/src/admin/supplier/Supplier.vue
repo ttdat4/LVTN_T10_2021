@@ -39,14 +39,18 @@
                     <v-col cols="12">
                       <v-text-field
                         v-model="editedItem.name"
+                        :rules="rules.name"
                         label="Tên nhà cung cấp"
                       ></v-text-field>
                       <v-text-field
                         v-model="editedItem.phonenumber"
+                        :rules="rules.phonenumber"
+                        type="number"
                         label="Số điện thoại"
                       ></v-text-field>
                       <v-text-field
                         v-model="editedItem.address"
+                        :rules="rules.address"
                         label="Địa chỉ"
                       ></v-text-field>
                     </v-col>
@@ -100,6 +104,23 @@
 export default {
   data() {
     return {
+       valid: true,
+      rules: {
+        name: [
+          (v) => !!v || "Tên sản phẩm không được để trống",
+          (v) => v.length > 6 || "Tên sản phẩm ít nhất 6 kí tự",
+        ],
+        phonenumber: [
+          (v) => !!v || "Số điện thoại không được để trống",
+          (v) =>
+            (v.length <= 10) & (v.length >= 10) ||
+            "Số điện thoại bằng 10 kí tự số",
+        ],
+        address: [
+          (v) => !!v || "Địa chỉ không được để trống",
+          (v) => v.length > 20 || "Địa chỉ ít nhất 20 kí tự",
+        ],
+      },
       search: "",
       dialog: false,
       dialogDelete: false,

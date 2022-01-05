@@ -38,6 +38,7 @@
                     <v-col cols="12">
                       <v-text-field
                         v-model="editedItem.name"
+                        :rules="rules.name"
                         label="Tên loại sản phẩm"
                       ></v-text-field>
                     </v-col>
@@ -91,6 +92,13 @@
 export default {
   data() {
     return {
+      valid: true,
+      rules: {
+        name: [
+          (v) => !!v || "Tên sản phẩm không được để trống",
+          (v) => v.length > 6 || "Tên sản phẩm ít nhất 6 kí tự",
+        ],
+      },
       search: "",
       dialog: false,
       dialogDelete: false,

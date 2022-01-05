@@ -66,6 +66,7 @@
                 v-model="invoice.phonenumber"
                 :rules="rules.phonenumber"
                 label="Số điện thoại"
+                type="number"
                 required
               ></v-text-field
             ></v-col>
@@ -181,7 +182,7 @@ export default {
     },
     submit: function(e) {
       e.preventDefault();
-      this.show = true;
+      this.show = true;     
       const temp = [];
       this.cart.forEach((el) => {
         const item = {

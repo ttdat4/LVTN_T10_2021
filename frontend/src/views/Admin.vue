@@ -27,14 +27,14 @@
             LOẠI SẢN PHẨM
           </router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link
-            to="/admin/product"
+            to="/admin/producttest"
             class="nav-link text-dark font-italic bg-light"
           >
             SẢN PHẨM
           </router-link>
-        </li>
+        </li> -->
         <li class="nav-item">
           <router-link
             to="/admin/supplier"
@@ -52,6 +52,14 @@
             KHÁCH HÀNG
           </router-link>
         </li>
+         <li class="nav-item">
+          <router-link
+            to="/admin/product"
+            class="nav-link text-dark font-italic bg-light"
+          >
+            SẢN PHẨM
+          </router-link>
+        </li>
         <li class="nav-item">
           <v-select
             v-model="activeInvoice"
@@ -65,14 +73,7 @@
             @change="changeStatusInvoice"
           ></v-select>
         </li>
-        <li class="nav-item">
-          <router-link
-            to="/admin/productpagetest"
-            class="nav-link text-dark font-italic bg-light"
-          >
-            SẢN PHẨM Test
-          </router-link>
-        </li>
+       
       </ul>
     </div>
 

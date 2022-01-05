@@ -13,20 +13,23 @@
         LIÊN HỆ
       </v-tab>
       <v-tab to="/cart">
-        GIỎ HÀNG
+        <v-badge v-if="cart.length > 0" color="pink darken-1" :content="cart.length">
+          GIỎ HÀNG
+        </v-badge>
+        <v-badge v-else color="pink darken-1" content="0">
+          GIỎ HÀNG
+        </v-badge>
       </v-tab>
     </v-tabs>
     <v-avatar>
-      <img
-        src="http://127.0.0.1:8000/image/product/vong-tay-dep171.jpg"
-      />
+      <img src="https://cdn.vuetifyjs.com/images/john.jpg" />
     </v-avatar>
 
     <div class="ml-2">
       <v-btn to="/login" dark v-if="user == '' || user == null">
         Tài khoản
       </v-btn>
-      <v-btn v-else @click="logOut" dark>
+      <v-btn v-else @click="profile" dark>
         {{ user.name }}
       </v-btn>
     </div>
@@ -36,6 +39,9 @@
 <script>
 export default {
   computed: {
+    cart() {
+      return this.$store.state.cart;
+    },
     user() {
       return this.$store.state.user;
     },
@@ -47,6 +53,9 @@ export default {
       localStorage.removeItem("role");
       this.$store.state.user = "";
       this.$store.state.role = "";
+    },
+    profile() {
+      this.$router.push("/profile");
     },
   },
 };

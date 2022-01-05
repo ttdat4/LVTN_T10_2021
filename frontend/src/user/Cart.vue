@@ -141,6 +141,11 @@ export default {
       if (this.user != null) {
         this.$router.push("checkout");
       }
+      else 
+      {
+        alert("Bạn phải đăng nhập để đặt hàng!");
+        this.$router.push("/login");
+      }
     },
   },
 };

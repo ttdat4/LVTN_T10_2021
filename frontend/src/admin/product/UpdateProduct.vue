@@ -3,21 +3,31 @@
     <h3 class="text-center text-success">Sửa sản phẩm</h3>
     
     <v-row>
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="6">
         <v-text-field
           v-model="product.name"
-          :rules="nameRules"
-          :counter="15"
+          :rules="rules.name"
+          counter
           label="Tên sản phẩm"
           required
         ></v-text-field>
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="3">
         <v-text-field
           v-model="product.price"
-          :rules="emailRules"
+          :rules="rules.price"
           label="Giá"
+          type="number"
+          required
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-text-field
+          v-model="product.status"
+          :rules="rules.status"
+          label="Trạng thái"
+          type="number"
           required
         ></v-text-field>
       </v-col>
@@ -28,6 +38,7 @@
         
           v-model="selectCategory"
           :items="categorys"
+          :rules="rules.category"
           clearable
           item-value="id"
           item-text="name"
@@ -45,6 +56,7 @@
         <v-select
           v-model="selectSupplier"
           :items="suppliers"
+          :rules="rules.supplier"
           clearable
           item-value="id"
           item-text="name"
@@ -62,6 +74,8 @@
       <v-col cols="12" md="8">
         <v-textarea
           v-model="product.description"
+          :rules="rules.description"
+          counter
           outlined
           name="input-7-4"
           label="Mô tả sản phẩm"
@@ -86,9 +100,31 @@ export default {
   name: "UpdateProduct",
   data() {
     return {
+      rules: {
+        name: [
+          (v) => !!v || "Tên sản phẩm không được để trống",
+          (v) => v.length > 6 || "Tên sản phẩm ít nhất 6 kí tự",
+        ],
+        price: [
+          (v) => !!v || "Giá không được để trống",
+        ],
+        status: [
+          (v) => !!v || "Trạng thái không được để trống",
+        ],
+        category: [
+          (v) => !!v || "Danh mục không được để trống",
+        ],
+        supplier: [
+          (v) => !!v || "Nhà cung cấp không được để trống",
+        ],
+        description: [
+          (v) => !!v || "Mô tả không được để trống",
+        ],
+      },
       product: {
         name: "",
         price: 0,
+        status: "",
         description: "",
         category_id: "",
         supplier_id: "",
@@ -123,21 +159,21 @@ export default {
       const product = {
         name: this.product.name,
         price: this.product.price,
+        status: this.product.status,
         description: this.product.description,
         category_id: this.product.category_id,
         supplier_id: this.product.supplier_id,
       };
       console.log(product);
-      //  this.axios
-      //   .put("http://127.0.0.1:8000/api/product/" + this.$route.params.url, product)
-      //   .then(() => {
-      //     this.show = !this.show;
-      //     alert("Sửa thành công");
-      //     this.$router.push("/admin/product");
-      //   })
-      //   .catch((error) => {
-      //     console.log(error.response.product);
-      //   });
+       this.axios
+        .put("http://127.0.0.1:8000/api/product/" + this.$route.params.url, product)
+        .then(() => {
+          alert("Sửa thành công");
+          this.$router.push("/admin/product");
+        })
+        .catch((error) => {
+          console.log(error.response.product);
+        });
 
        
 

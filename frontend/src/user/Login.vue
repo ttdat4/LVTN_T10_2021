@@ -151,6 +151,7 @@
                                   dense
                                   color="blue"
                                   autocomplete="false"
+                                  type="number"
                                   :rules="role.phonenumberRules"
                                   class="mt-4"
                                   required
@@ -236,6 +237,7 @@ export default {
   },
   data() {
     return {
+      valid: true,
       login: {
         email: "",
         password: "",

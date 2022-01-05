@@ -6,7 +6,8 @@
         <v-col cols="12" md="8">
           <v-text-field
             v-model="product.name"
-            :counter="30"
+            :rules="rules.name"
+            counter
             label="Tên sản phẩm"
             required
           ></v-text-field>
@@ -15,6 +16,7 @@
         <v-col cols="12" md="4">
           <v-text-field
             type="number"
+            :rules="rules.price"
             min="2000000"
             v-model="product.price"
             label="Giá"
@@ -26,6 +28,7 @@
         <v-col class="d-flex" cols="12" md="3">
           <v-select
             v-model="selectCategory"
+            :rules="rules.category"
             :items="categorys"
             clearable
             item-value="id"
@@ -41,6 +44,7 @@
          <v-col class="d-flex" cols="12" md="3">
           <v-select
             v-model="selectSupplier"
+            :rules="rules.supplier"
             :items="suppliers"
             clearable
             item-value="id"
@@ -59,6 +63,7 @@
           <v-text-field
           v-for="(itemSize, indexSize) in product.size" :key="indexSize"
             v-model="itemSize.name"
+            :rules="rules.size"
             type="text"
             label="Size"
             required
@@ -68,6 +73,7 @@
           <v-text-field
            v-for="(itemSize, indexSize) in product.size" :key="indexSize"
             v-model="itemSize.amount"
+            :rules="rules.amount"
             type="number"
             min="1"
             label="Số lượng"
@@ -79,6 +85,7 @@
             outlined
             counter
             v-model="product.description"
+            :rules="rules.description"
             label="Mô tả sản phẩm"
           ></v-textarea>
         </v-col>
@@ -87,6 +94,8 @@
         <v-col cols="12" md="8">
           <v-file-input
             v-model="image"
+            :rules="rules.image"
+            required
             color="deep-purple accent-4"
             counter
             label="Chọn ảnh sản phẩm"
@@ -96,7 +105,7 @@
              @change="imageChange($event)"
             accept="image/jpg, image/jpeg, image/png, image/gif"
             outlined
-            :show-size="1000"
+            show-size
           >
             <template v-slot:selection="{ index, text }">
               <v-chip
@@ -135,6 +144,34 @@
 export default {
   data() {
     return {
+      valid: true,
+      rules: {
+        name: [
+          (v) => !!v || "Tên sản phẩm không được để trống",
+          (v) => v.length > 6 || "Tên sản phẩm ít nhất 6 kí tự",
+        ],
+        price: [
+          (v) => !!v || "Giá không được để trống",
+        ],
+        category: [
+          (v) => !!v || "Danh mục không được để trống",
+        ],
+        supplier: [
+          (v) => !!v || "Nhà cung cấp không được để trống",
+        ],
+        description: [
+          (v) => !!v || "Mô tả không được để trống",
+        ],
+        size: [
+          (v) => !!v || "Size không được để trống",
+        ],
+        amount: [
+          (v) => !!v || "Số lượng không được để trống",
+        ],
+        image: [
+          (v) => !!v || "Ảnh không được để trống",
+        ],
+      },
       product: {
         name: "",
         price: 3000000,
