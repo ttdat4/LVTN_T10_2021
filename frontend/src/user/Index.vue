@@ -1,12 +1,6 @@
 <template>
   <v-container fluid class="index">
     <v-row>
-      <!-- <v-col cols="12" sm="2">
-          <v-sheet rounded="lg" min-height="268">
-            Sẽ có những gì ở đây
-          </v-sheet>
-        </v-col> -->
-
       <v-col cols="12" sm="12">
         <v-carousel>
           <v-carousel-item
@@ -18,12 +12,6 @@
           ></v-carousel-item>
         </v-carousel>
       </v-col>
-
-      <!-- <v-col cols="12" sm="3">
-          <v-sheet rounded="lg" min-height="268">
-            Và những gì ở đây nữa
-          </v-sheet>
-        </v-col> -->
     </v-row>
     <v-col cols="12" sm="12" id="listCategorySlide">
       <v-sheet class="mx-auto" max-width="900">
@@ -105,11 +93,11 @@ export default {
       items: [
         {
           src:
-            "https://www.bulgari.com/on/demandware.static/-/Library-Sites-bulgariSharedLibrary/default/dw0e0ebb36/homepage/refresh_serpenti/2021/1920x650.jpg",
+            "https://skymond.vn/uploads/files/Banner%20nhan%20cuoi%20vang%20trang.jpg",
         },
         {
           src:
-            "https://www.graff.com/dw/image/v2/BFNT_PRD/on/demandware.static/-/Library-Sites-GraffSharedLibrary/en_GL/dw5e4c2094/02TildasBow_Campaign-Page_Desktop.jpg",
+            "https://trangsuc123.com/wordpress/uploads/banner12.jpg",
         },
       ],
     };
