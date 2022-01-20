@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Models\UserRole;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class UserApiController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
 
-            $data = DB::table('users_role')
+            $data = DB::table('user_roles')
                 ->where('user_id', '=', $user->id)
                 ->select('role_id')
                 ->get();
@@ -36,9 +37,14 @@ class UserApiController extends Controller
         $user = new User();
         $user->fill($request->all());
         $user->password = Hash::make($request->password);
-        
         $user->save();
-        return response()->json(["message" => "Dang ky thanh cong"], 201);
+
+        $userRole = new UserRole();
+        $userRole->role_id = 2;
+        $userRole->user_id = $user->id;
+        $userRole->save();
+
+        return response()->json(["message" => "Đăng ký thành công!"], 201);
     }
     public  function profile(Request $request)
     {
