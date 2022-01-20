@@ -20,7 +20,7 @@
               ><span>Tên sản phẩm: {{ editedItem.name }}</span></v-col
             >
             <v-col
-              ><span>Giá: {{ editedItem.price }}</span></v-col
+              ><span>Giá: {{ editedItem.price}}</span></v-col
             >
           </v-row>
           <v-row>

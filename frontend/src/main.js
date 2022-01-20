@@ -8,12 +8,14 @@ import vuetify from './plugins/vuetify'
 import VueSwal from 'vue-swal'
 import "vuetify/dist/vuetify.min.css";
 import { Datetime } from 'vue-datetime';
+import JwPagination from 'jw-vue-pagination';
 
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(VueSwal)
 Vue.use(Datetime)
+Vue.component('jw-pagination', JwPagination);
 
 new Vue({
   router,

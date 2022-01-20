@@ -44,7 +44,6 @@
         </v-slide-group>
       </v-sheet>
     </v-col>
-    <v-row> </v-row>
 
     <v-row>
       <h3 class="ml-16 mt-16">Sản phẩm mới</h3>
@@ -53,18 +52,53 @@
           <Product :product="item" />
         </v-card>
       </v-col>
+      <div class="text-center">
+        <v-pagination
+          v-model="page"
+          :length="15"
+          :total-visible="6"
+          @changePage="onChangePage"
+        ></v-pagination>
+      </div>
+      <!-- <div class="card-footer pb-0 pt-3">
+          <jw-pagination
+            :items="exampleItems"
+            @changePage="onChangePage"
+            :labels="customLabels"
+          ></jw-pagination>
+        </div> -->
+    </v-row>
+
+    <v-row>
+      <v-col> </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import Product from "../components/Product.vue";
+
+// const exampleItems = [...Array(50).keys()].map((i) => ({
+
+// }));
+// const customLabels = {
+//     first: '<<',
+//     last: '>>',
+//     previous: '<',
+//     next: '>'
+// };
 export default {
   components: {
     Product,
   },
   data() {
     return {
+      // exampleItems,
+      // customLabels,
+      pagination: {
+        current: 1,
+        total: 0,
+      },
       activeCategory: "",
       listProduct: [], //biến lưu danh sách sản phẩm
       listCategory: [], //biến lưu danh sách danh mục
@@ -98,6 +132,7 @@ export default {
       .catch((error) => {
         this.message = error;
       });
+      this.getProducts();
   },
   methods: {
     toggle(item) {
@@ -113,6 +148,17 @@ export default {
           }
         });
     },
+    getProducts() {
+            window.axios.get('/api/product?page=' + this.pagination.current)
+                .then(response => {
+                    this.listProduct = response.data.product;
+                    this.pagination.current = response.data.current_page;
+                    this.pagination.total = response.data.last_page;
+                });
+        },
+        onPageChange() {
+            this.getProducts();
+        }
   },
 };
 </script>

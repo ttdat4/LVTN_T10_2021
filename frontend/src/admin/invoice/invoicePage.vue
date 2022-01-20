@@ -2,6 +2,7 @@
   <div>
     <h3 class="text-center">DANH SÁCH ĐƠN HÀNG</h3>
 
+ <h6>Tổng tiền: {{ totalInvoice}}</h6>
     <v-dialog v-model="dialog" max-width="900px">
       <v-card>
         <v-card-title
@@ -85,7 +86,7 @@
                       :key="index"
                     >
                       <td class="text-center">{{ item.name }}</td>
-                      <td class="text-center">{{ item.price }}</td>
+                      <td class="text-center">{{item.price}}</td>
                       <td class="text-center">{{ item.amount }}</td>
                       <td class="text-center">
                         {{ item.price * item.amount }}
@@ -99,7 +100,7 @@
         </v-container>
       </v-card>
     </v-dialog>
-    <v-simple-table>
+    <v-simple-table :search="search">
       <template v-slot:default>
         <thead>
           <tr>
@@ -232,7 +233,7 @@ export default {
     return {
       dialog: false,
       dialogStatus: false,
-      search: "",
+      search: '',
       editedIndex: -1,
       itemStatus: [
         { name: "Chưa xử lý", key: 0 },
@@ -255,8 +256,14 @@ export default {
     statusInvoice() {
       return this.listInvoice[0].status;
     },
+    totalInvoice(){
+      let temp = 0;
+      this.listInvoice.forEach( el  => {
+        temp += el.total;
+      });
+     return temp;
+    },
   },
-
   methods: {
     activeMenu() {
       this.isActive = !this.isActive;

@@ -47,7 +47,7 @@
                               "
                               @click:append="showPassword = !showPassword"
                             />
-                            <v-btn color="black" dark block tile type="submit"
+                            <v-btn color="blue" dark block tile type="submit"
                               >ĐĂNG NHẬP
                               <div
                                 class="spinner-border text-success"
