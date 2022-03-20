@@ -20,8 +20,8 @@
       </v-img>
       <v-card-text class="pt-6" style="position: relative;">
         
-        <v-btn absolute color="blue" class="white--text" fab large right top >
-          info
+        <v-btn absolute color="blue" class="yellow--text" fab large right top >
+          Thông tin chi tiết
         </v-btn>
        
         <v-btn

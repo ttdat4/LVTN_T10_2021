@@ -57,7 +57,7 @@
               ><v-text-field
                 v-model="invoice.name"
                 :rules="rules.name"
-                label="Họ tên"
+                :label="this.user.name"
                 required
               ></v-text-field
             ></v-col>
@@ -65,7 +65,7 @@
               ><v-text-field
                 v-model="invoice.phonenumber"
                 :rules="rules.phonenumber"
-                label="Số điện thoại"
+                :label="this.user.phonenumber"
                 type="number"
                 required
               ></v-text-field
@@ -74,7 +74,7 @@
               ><v-text-field
                 v-model="invoice.email"
                 :rules="rules.email"
-                label="Email"
+                :label="this.user.email"
                 required
               ></v-text-field
             ></v-col>
@@ -82,7 +82,7 @@
               ><v-text-field
                 v-model="invoice.address"
                 :rules="rules.address"
-                label="Địa chỉ"
+                :label="this.user.address"
                 required
               ></v-text-field
             ></v-col>
@@ -142,7 +142,7 @@ export default {
 
       product: [],
       invoice: {
-        name: "",
+        name:"",
         address: "",
         email: "",
         phonenumber: "",

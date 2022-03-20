@@ -23,13 +23,14 @@
         </v-card-text>
   
         <v-card-text class=" pt-1">
-          Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+          BYJ là viết tắt của Bach Yen Jewelry với nguyện vọng là sản xuất kinh doanh trang sức bẳng vàng, bạc, đá quý, quà tặng doanh nghiệp, phụ kiện thời trang, quà lưu niệm, đồng hồ. Với slogan "Niềm tin và Phong cách" BYJ muốn khách hàng hãy tin tưởng ở chất lượng sản phẩm, dịch vụ và nhấn mạnh rằng các sản phẩm tại BYJ sẽ mang đến phong cách riêng cho khách hàng.  
             </v-card-text>
   
         <v-divide></v-divide>
-  
+    <!-- {{ new Date().getFullYear() }} -->
         <v-card-text class="">
-          {{ new Date().getFullYear() }} — <strong>LVTN-ThànhĐạt</strong>
+        2022 — <strong>LVTN-ThànhĐạt-byTD</strong>
         </v-card-text>
       </v-card>
     </v-footer>
